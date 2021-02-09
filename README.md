@@ -1,4 +1,5 @@
-# GestionCinema + Angular + Spring + Thymleaf + MySQL
+# GestionCinema
+# Angular + Spring + Thymleaf + MySQL
 
 Gestion des cinémas pour les deux parties front et back office
 
