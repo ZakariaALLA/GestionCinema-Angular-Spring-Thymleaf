@@ -8,7 +8,7 @@ Gestion des cinémas pour les deux parties front et back office
 
 ## Execution du projet partie back end
 * Il faut créer une base de données MySQL sous nom `cinema`.
-* Avoir un dossier nomme imagesCinema dans le chemin `C:\Users\${USERNAME}\imagesCinema\images`.
+* Avoir un dossier nommé images dans le chemin `C:\Users\${USERNAME}\imagesCinema\images`.
 
 ## Output partie back office
 ![](img/back.png?raw=true)
