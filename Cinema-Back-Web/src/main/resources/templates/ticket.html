@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www:thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	      layout:decorator="template1"
+	>
+<head>
+<meta charset="utf-8">
+<title>Tickets</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+	<div class="container mt-5">
+	<div class="card">
+		<div class="card-header">Liste des Tickets</div>
+		<div class="card-body">
+			<form method="get" th:action="@{ticket}">
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" name=keyword th:value="${keyword}">
+				<button class="btn btn-success">Chercher</button>
+			</div>
+			</form>
+			<table class="table">
+				<tr>
+					<th>ID</th><th>Nom Client</th><th>Prix</th><th>Code Payement</th><th>Reservee</th>
+				</tr>
+				<tr th:each="v:${tickets}">
+					<td th:text="${v.id}"></td>
+					<td th:text="${v.nomClient}"></td>
+					<td th:text="${v.prix}"></td>
+					<td th:text="${v.codePayement}"></td>
+					<td th:text="${v.reservee}"></td>
+					<td><a onclick="return confirm('Etes-vous s�r de vouloir supprimer?')" 
+					class="btn btn-danger" th:href="@{deleteTicket(id=${v.id},keyword=${keyword},page=${currentPage},size=${size})}">Delete</a> </td>
+						<td sec:authorize="hasRole('ROLE_ADMIN')">
+							<a class="btn btn-success" th:href="@{editTicket(id=${v.id})}" >Edit
+							</a>
+							</td>
+				</tr>
+				
+			</table>
+<!-- 
+			<div th:if="${pages &gt; 0}">
+				Nombre de tickets: [[${totalTickets}]]
+				&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; <a
+					th:if="${currentPage &gt; 0}"
+					th:href="@{ticket(page=0, keyword=${keyword}, size=${size})}">Début</a>
+				<span th:unless="${currentPage &gt; 0}">Début</span> &nbsp;&nbsp; <a
+					th:if="${currentPage &gt; 0}"
+					th:href="@{ticket(page=${currentPage - 1}, keyword=${keyword}, size=${size})}">Précedent</a>
+				<span th:unless="${currentPage &gt; 0}">Précedent</span> &nbsp;&nbsp;
+				<span th:each="i: ${#numbers.sequence(0, pages-1)}"> <a
+					th:if="${currentPage != i}"
+					th:href="@{ticket(page=${i}, keyword=${keyword}, size=${size})}">[[${i}]]</a>
+					<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+				</span> <a th:if="${currentPage &lt pages-1}"
+					th:href="@{ticket(page=${currentPage + 1}, keyword=${keyword}, size=${size})}">Suivant</a>
+				<span th:unless="${currentPage &lt pages-1}">Suivant</span>
+				&nbsp;&nbsp; <a th:if="${currentPage &lt pages-1}"
+					th:href="@{ticket(page=${pages}, keyword=${keyword}, size=${size})} ">Fin</a>
+				<span th:unless="${currentPage &lt pages-1}">Fin</span>
+			</div> -->
+
+
+				<ul class="nav nav-pills">
+					<li th:each="page,status:${pages}">
+						<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}"
+						 th:href="@{ticket(page=${status.index},keyword=${keyword},size=${size})}" th:text="${status.index}"></a>
+					</li>
+				</ul>
+
+
+		</div>
+	</div>
+	</div>
+	</div>
+
+</body>
+</html>

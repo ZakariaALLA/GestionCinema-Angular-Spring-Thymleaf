@@ -1,0 +1,69 @@
+package com.cinema.web;
+
+import java.util.List;
+
+import com.cinema.dao.CinemaRepository;
+import com.cinema.dao.VilleRepository;
+import com.cinema.entities.Cinema;
+import com.cinema.entities.Ville;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class CinemaThController {
+	
+	@Autowired
+	private VilleRepository villeRepository;
+	@Autowired
+	private CinemaRepository cinemaRepository;
+	
+	@GetMapping(path = "/ville")
+	public String villes(Model model,
+			@RequestParam(name="page",defaultValue = "0")int page,
+			@RequestParam(name="size",defaultValue = "4")int size,
+			@RequestParam(name="keyword",defaultValue = "")String mc) {
+		Page<Ville> pageVilles= villeRepository.findByNameContains(mc, PageRequest.of(page, size));
+		model.addAttribute("villes",pageVilles.getContent());
+		model.addAttribute("pages",new int[pageVilles.getTotalPages()]);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("size", size);
+		model.addAttribute("keyword", mc);
+		return "ville";
+	}
+	
+	@GetMapping(path = "/index")
+	public String list() {
+		return "index";
+	}
+	
+	@GetMapping(path = "/deleteVille")
+	public String delete(Long id,String keyword,int page,int size) {
+		villeRepository.deleteById(id);
+		return "redirect:/ville?page="+page+"&size"+size+"&keyword"+keyword;
+	}
+	
+	@GetMapping(path = "/cinema")
+	public String cinemas(Model model,
+			@RequestParam(name="page",defaultValue = "0")int page,
+			@RequestParam(name="size",defaultValue = "4")int size,
+			@RequestParam(name="keyword",defaultValue = "")String mc) {
+		Page<Cinema> pageCinemas= cinemaRepository.findByNameContains(mc, PageRequest.of(page, size));
+		model.addAttribute("cinemas",pageCinemas.getContent());
+		model.addAttribute("pages",new int[pageCinemas.getTotalPages()]);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("size", size);
+		model.addAttribute("keyword", mc);
+		return "cinema";
+	}
+	
+	@GetMapping(path = "/deleteCinema")
+	public String deletecinema(Long id,String keyword,int page,int size) {
+		villeRepository.deleteById(id);
+		return "redirect:/cinema?page="+page+"&size"+size+"&keyword"+keyword;
+}
+}

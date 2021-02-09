@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<title>Cinema</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="#">Cinemas</a>
+
+		<!-- Links -->
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" th:href="@{ville}">Ville</a></li>
+
+			<!-- Dropdown -->
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Villes </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{ville}">ListVilles</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formVille}">Ajouter</a> <a
+						class="dropdown-item" th:href="@{ville}">Chercher</a>
+				</div></li>
+				
+				<!-- Dropdown -->
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Cinemas </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{cinema}">ListCinemas</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formCinema}">Ajouter</a> 
+					<a class="dropdown-item" th:href="@{cinema}">Chercher</a>
+				</div></li>
+				
+					<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Salles </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{salle}">ListSalles</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formSalle}">Ajouter</a> 
+					<a class="dropdown-item" th:href="@{salle}">Chercher</a>
+				</div></li>
+				
+					<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Films </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{film}">ListFilms</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formFilm}">Ajouter</a> 
+					<a class="dropdown-item" th:href="@{film}">Chercher</a>
+				</div></li>
+				
+					<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Seances </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{seance}">ListSeances</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formSeance}">Ajouter</a> 
+					<a class="dropdown-item" th:href="@{seance}">Chercher</a>
+				</div></li>
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Tickets </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{ticket}">ListTickets</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formTicket}">Ajouter</a> 
+					<a class="dropdown-item" th:href="@{ticket}">Chercher</a>
+					</div></li>
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Places </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{place}">ListPlaces</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formPlace}">Ajouter</a> 
+					<a class="dropdown-item" th:href="@{place}">Chercher</a>
+					</div></li>
+					
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Categories </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{categorie}">ListCategories</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formCategorie}">Ajouter</a> 
+					<a class="dropdown-item" th:href="@{categorie}">Chercher</a>
+					</div></li>
+					
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Projection </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" th:href="@{projection}">ListProjection</a> 
+					<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{formProjection}">Ajouter</a> 
+					<a class="dropdown-item" th:href="@{projection}">Chercher</a>
+					</div></li>
+		</ul>
+
+		<ul class="navbar-nav ml-auto" >
+			<!-- Dropdown -->
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" 
+			data-toggle="dropdown"> 
+				<span sec:authorize="isAuthenticated()">
+				<span sec:authentication="name"></span> 
+				</span>
+				<span sec:authorize="!isAuthenticated()">
+				<span>Connexion</span> 
+				</span>
+				</a>
+				<div class="dropdown-menu">
+					<a sec:authorize="isAnonymous()" class="dropdown-item" th:href="@{login}">Login</a>
+					<a sec:authorize="isAuthenticated()"  class="dropdown-item" th:href="@{logout}">Logout</a>
+					<a class="dropdown-item" href="#">Profile</a>
+				</div>
+			</li>
+		</ul>
+		
+	</nav>
+	<section layout:fragment="pageContent"></section>
+
+</body>
+</html>

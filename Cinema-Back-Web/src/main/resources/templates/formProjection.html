@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www:thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	      layout:decorator="template1"
+	>
+<head>
+<meta charset="utf-8">
+<title>Form Film</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+		<div class="col-md-6">
+		<div class="card">
+		<div class="card-header" th:if="${mode=='new'}">Formulaire de saisie d'une nouvelle Projection</div>
+		<div class="card-header" th:if="${mode=='edit'}">Formulaire de mise à jour d'une nouvelle Projection</div>		
+		<div class="card-body">
+		<!-- <form th:if="${state=='save'}" th:action="saveProjection" method="post">
+				<div th:if="${mode=='edit'}"  class="form-group">
+					<label class="control-label">ID:</label>
+					<label class="control-label" th:text="${projection.id}"></label>
+					<input type="hidden" name="id" class="form-control" th:value="${projection.id}">
+					<span th:errors="${projection.id}" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="control-label">date Projection:</label>
+					<input type="date" step="1" name="dateProjection"  th:value="${projection.dateProjection}" >
+					<span th:errors="${projection.dateProjection}" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Ville</label> 
+					<select  name="ville" >
+						<option th:each="v:${villes}" 
+							 th:value="${v.id}" th:text="${v.name}">
+						</option>
+					</select>
+					<button type="submit" name="addVille">Add Option</button>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Cinéma</label> 
+					<select  name="cinema" >
+						<option th:each="c:${cinemas}" 
+							 th:value="${c.id}" th:text="${c.name}">
+						</option>
+						    <button type="submit" name="addOption">Add Option</button>
+					</select>
+					<button type="submit" name="addCinema">Add Option</button>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Salle</label> 
+
+					<select  name="salle" required  >
+						<option th:each="c:${salles}" 
+							 th:value="${s.id}" th:text="${s.name}">
+						</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Film</label> 
+					<select  name="film" >
+						<option th:each="f:${films}" 
+							 th:value="${f.id}" th:text="${f.titre}">
+						</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Séance</label> 
+					<select  name="seance" >
+						<option th:each="s:${seances}" 
+							 th:value="${s.id}" th:text="${s.heureDebut}">
+						</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Prix:</label>
+					<input type="number" step="any" name="prix"  class="form-control" th:value="${projection.prix}">
+					<span th:errors="${projection.prix}"></span>
+				</div>
+				<button class="btn btn-success" type="submit">Save</button>
+			</form> -->
+
+			<form th:if="${state=='ville'}"  th:action="saveProjectionVille" method="post">
+			
+				<div th:if="${mode=='edit'}"  class="form-group">
+					<label class="control-label">ID:</label>
+					<label class="control-label" th:text="${projection.id}"></label>
+					<input type="hidden" name="id" class="form-control" th:value="${projection.id}">
+					<span th:errors="${projection.id}" class="text-danger"></span>
+				</div>
+				<div th:if="${state=='ville'}" class="form-group">
+					<label class="control-label">Ville</label> 
+					<select class="form-control"  name="ville" >
+						<option th:each="v:${villes}" th:value="${v.id}" th:text="${v.name}">
+						</option>
+					</select>
+				</div>
+				<div th:if="${state=='cinema'}" class="form-group">
+					<label class="control-label">Cinéma</label> 
+					<select class="formal-control" name="cinema" >
+						<option th:each="c:${cinemas}" 
+							 th:value="${c.id}" th:text="${c.name}">
+						</option>
+					</select>
+					<button type="submit">Choisir le cinema</button>
+				</div>
+				<div th:if="${state=='final'}">
+					<div class="form-group">
+						<label class="control-label">date Projection:</label>
+						<input class="form-control" type="date" step="1" name="dateProjection"  th:value="${projection.dateProjection}" >
+						<span th:errors="${projection.dateProjection}" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Salle</label> 
+	
+						<select class="form-control" name="salle" required  >
+							<option th:each="c:${salles}" 
+								 th:value="${s.id}" th:text="${s.name}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Film</label> 
+						<select class="form-control" name="film" >
+							<option th:each="f:${films}" 
+								 th:value="${f.id}" th:text="${f.titre}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Séance</label> 
+						<select class="form-control" name="seance" >
+							<option th:each="s:${seances}" 
+								 th:value="${s.id}" th:text="${s.heureDebut}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Prix:</label>
+						<input type="number" step="any" name="prix"  class="form-control" th:value="${projection.prix}">
+						<span th:errors="${projection.prix}"></span>
+					</div>
+				</div>
+
+				<button class="btn btn-success" type="submit">Save</button>
+			</form>
+
+
+
+
+
+			<form th:if="${state=='cinema'}"  th:action="saveProjectionCinema" method="post">
+			
+				<div th:if="${mode=='edit'}"  class="form-group">
+					<label class="control-label">ID:</label>
+					<label class="control-label" th:text="${projection.id}"></label>
+					<input type="hidden" name="id" class="form-control" th:value="${projection.id}">
+					<span th:errors="${projection.id}" class="text-danger"></span>
+				</div>
+				<div th:if="${state=='ville'}" class="form-group">
+					<label class="control-label">Ville</label> 
+					<select class="form-control" name="ville" >
+						<option th:each="v:${villes}" th:value="${v.id}" th:text="${v.name}">
+						</option>
+					</select>
+					<button type="submit" name="addVille">Choisir la ville</button>
+				</div>
+				<div th:if="${state=='cinema'}" class="form-group">
+					<label class="control-label">Cinéma</label> 
+					<select class="form-control" name="cinema" >
+						<option th:each="c:${cinemas}" 
+							 th:value="${c.id}" th:text="${c.name}">
+						</option>
+					</select>
+					<button type="submit">Choisir le cinema</button>
+				</div>
+				<div th:if="${state=='final'}">
+					<div class="form-group">
+						<label class="control-label">date Projection:</label>
+						<input type="date" step="1" name="dateProjection"  th:value="${projection.dateProjection}" >
+						<span th:errors="${projection.dateProjection}" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Salle</label> 
+	
+						<select class="form-control" name="salle" required  >
+							<option th:each="c:${salles}" 
+								 th:value="${s.id}" th:text="${s.name}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Film</label> 
+						<select class="form-control" name="film" >
+							<option th:each="f:${films}" 
+								 th:value="${f.id}" th:text="${f.titre}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Séance</label> 
+						<select class="form-control" name="seance" >
+							<option th:each="s:${seances}" 
+								 th:value="${s.id}" th:text="${s.heureDebut}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Prix:</label>
+						<input type="number" step="any" name="prix"  class="form-control" th:value="${projection.prix}">
+						<span th:errors="${projection.prix}"></span>
+					</div>
+				</div>
+
+				<button class="btn btn-success" type="submit">Save</button>
+			</form>
+
+
+
+
+
+
+			<form th:if="${state=='final'}"  th:action="saveProjection" method="post">
+			
+				<div th:if="${mode=='edit'}"  class="form-group">
+					<label class="control-label">ID:</label>
+					<label class="control-label" th:text="${projection.id}"></label>
+					<input type="hidden" name="id" class="form-control" th:value="${projection.id}">
+					<span th:errors="${projection.id}" class="text-danger"></span>
+				</div>
+				<div th:if="${state=='ville'}" class="form-group">
+					<label class="control-label">Ville</label> 
+					<select  name="ville" >
+						<option th:each="v:${villes}" th:value="${v.id}" th:text="${v.name}">
+						</option>
+					</select>
+					<button type="submit" name="addVille">Choisir la ville</button>
+				</div>
+				<div th:if="${state=='cinema'}" class="form-group">
+					<label class="control-label">Cinéma</label> 
+					<select  name="cinema" >
+						<option th:each="c:${cinemas}" 
+							 th:value="${c.id}" th:text="${c.name}">
+						</option>
+					</select>
+					<button type="submit">Choisir le cinema</button>
+				</div>
+				<div th:if="${state=='final'}">
+					<div class="form-group">
+						<label class="control-label">date Projection:</label>
+						<input type="date" step="1" name="dateProjection"  th:value="${projection.dateProjection}" >
+						<span th:errors="${projection.dateProjection}" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Salle</label> 
+	
+						<select  name="salle" required  >
+							<option th:each="s:${salles}" 
+								 th:value="${s.id}" th:text="${s.name}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Film</label> 
+						<select  name="film" >
+							<option th:each="f:${films}" 
+								 th:value="${f.id}" th:text="${f.titre}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Séance</label> 
+						<select  name="seance" >
+							<option th:each="s:${seances}" 
+								 th:value="${s.id}" th:text="${s.heureDebut}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Prix:</label>
+						<input type="number" step="any" name="prix"  class="form-control" th:value="${projection.prix}">
+						<span th:errors="${projection.prix}"></span>
+					</div>
+				</div>
+
+				<button class="btn btn-success" type="submit">Save</button>
+			</form>
+
+		</div>
+		</div>
+		</div>
+		</div>
+	</div>
+
+</body>
+</html>

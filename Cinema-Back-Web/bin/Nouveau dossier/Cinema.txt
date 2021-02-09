@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www:thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Cinemas</title>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+</head>
+<body>
+	<div class="container mt-5">
+	<div class="card">
+		<div class="card-header">Liste des cinemas</div>
+		<div class="card-body">
+			<form method="get" th:action="@{cinema}">
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" name=keyword th:value="${keyword}">
+				<button class="btn btn-success">Chercher</button>
+			</div>
+			</form>
+			<table class="table">
+				<tr>
+					<th>ID</th><th>Altitude</th><th>Latitude</th><th>Longitude</th><th>Name</th><th>Nombre de salles</th><th>Ville</th>
+				</tr>
+				<tr th:each="v:${cinemas}">
+					<td th:text="${v.id}"></td>
+					<td th:text="${v.altitude}"></td>
+					<td th:text="${v.latitude}"></td>
+					<td th:text="${v.longitude}"></td>
+					<td th:text="${v.name}"></td>
+					<td th:text="${v.nombreSalles}"></td>
+					<td th:text="${v.ville.name}"></td>
+					<td><a onclick="return confirm('Etes-vous sûr de vouloir supprimer?')" 
+					class="btn btn-danger" th:href="@{deleteCinema(id=${v.id},keyword=${keywoed},page=${currentPage},size=${size})}">Delete</a> </td>
+				</tr>
+			</table>
+				<ul class="nav nav-pills">
+					<li th:each="page,status:${pages}">
+						<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}"
+						 th:href="@{cinema(page=${status.index},keyword=${keyword},size=${size})}" th:text="${status.index}"></a>
+					</li>
+				</ul>
+		</div>
+	</div>
+	</div>
+
+</body>
+</html>

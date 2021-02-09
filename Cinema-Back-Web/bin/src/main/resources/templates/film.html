@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www:thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	      layout:decorator="template1">
+<head>
+<meta charset="ISO-8859-1">
+<title>Films</title>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+</head>
+<body>
+<div layout:fragment="pageContent">
+	<div class="container mt-5">
+	<div class="card">
+		<div class="card-header">Liste des Films</div>
+		<div class="card-body">
+			<form method="get" th:action="@{film}">
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" name=keyword th:value="${keyword}">
+				<button class="btn btn-success">Chercher</button>
+			</div>
+			</form>
+			<table class="table">
+				<tr>
+					<th>ID</th><th>Titre</th><th>Description</th><th>Realisateur</th><th>dateSortie</th><th>duree</th><th>Photo</th>
+				</tr>
+				<tr th:each="v:${films}">
+					<td th:text="${v.id}"></td>
+					<td th:text="${v.titre}"></td>
+					<td th:text="${v.description}"></td>
+					<td th:text="${v.realisateur}"></td>
+					<td th:text="${v.dateSortie}"></td>
+					<td th:text="${v.duree}"></td>
+					<td><img th:src="@{'http://localhost:8080/imageFilm/'+${v.id}}" height="200p" width="150p"></td>
+					<td><a onclick="return confirm('Etes-vous sûr de vouloir supprimer?')" 
+					class="btn btn-danger" th:href="@{deleteFilm(id=${v.id},keyword=${keyword},page=${currentPage},size=${size})}">Delete</a> </td>
+					<td sec:authorize="hasRole('ROLE_ADMIN')">
+							<a class="btn btn-success" th:href="@{editFilm(id=${v.id})}" >Edit
+							</a>
+							</td>
+				</tr>
+			</table>
+				<ul class="nav nav-pills">
+					<li th:each="page,status:${pages}">
+						<a th:class="${status.index==currentPage?'btn btn-primary':'btn'}"
+						 th:href="@{film(page=${status.index},keyword=${keyword},size=${size})}" th:text="${status.index}"></a>
+					</li>
+				</ul>
+		</div>
+	</div>
+	</div>
+</div>
+</body>
+</html>

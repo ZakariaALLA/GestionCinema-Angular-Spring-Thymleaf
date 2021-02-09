@@ -1,0 +1,4 @@
+@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/ville**/**","/cinema**/**","/salle**/**","/imageFilm**/**","/payerTicket**/**","/seance**/**","/p**/**");
+	}

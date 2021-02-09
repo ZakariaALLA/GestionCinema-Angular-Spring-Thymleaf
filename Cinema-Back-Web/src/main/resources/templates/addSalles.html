@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www:thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	      layout:decorator="template1"
+	>
+<head>
+<meta charset="utf-8">
+<title>Salles</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+		<div class="col-md-10">
+		<div class="card">
+		<div class="card-header" >Formulaire d'ajout des Salles</div>
+		
+		<div class="card-body">
+			<h1 th:text="${cinema.name}"></h1>
+			<form action="#" th:action="saveSalles" th:object="${salles}"
+			method="post">
+				  
+				  <table class="table">
+						  <tr>
+							  <th > Nom de la Salle</th>
+							  <th 	> Places</th>
+						  </tr>
+						  <tr th:each="salle, i : *{salles}">
+
+
+							  <td><input class="form-control" type="text" th:name="name" th:field="*{salles[__${i.index}__].name}" /></td>
+							  <td><input class="form-control" type="number" th:name="nombrePlace" th:field="*{salles[__${i.index}__].nombrePlace}"  /></td> 
+							  <input type="hidden" th:name="cinema" th:field="*{salles[__${i.index}__].cinema.id}" th:value="${cinema.id}"  />
+						  </tr>
+				  </table>
+				  <input type="submit" id="submitButton" th:value="Save">
+				  <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+		  </form>
+		</div>
+		</div>
+		</div>
+		</div>
+	</div>
+
+</body>
+</html>

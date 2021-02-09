@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www:thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	      layout:decorator="template1"
+	>
+<head>
+<meta charset="utf-8">
+<title>Form Film</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+		<div class="col-md-6">
+		<div class="card">
+		<div class="card-header" th:if="${mode=='new'}">Formulaire de saisie d'une nouvelle Seance</div>
+		<div class="card-header" th:if="${mode=='edit'}">Formulaire de mise à jour d'une nouvelle Seance</div>
+		
+		<div class="card-body">
+		<form th:action="saveSeance" method="post">
+				<div class="form-group">
+					<label class="control-label">ID:</label>
+					<label class="control-label" th:text="${seance.id}"></label>
+					<input type="hidden" name="id" class="form-control" th:value="${seance.id}">
+					<span th:errors="${seance.id}" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Heure Début:</label>
+					<input type="time" name="heureDebut" class="form-control" th:value="${seance.heureDebut}">
+					<span th:errors="${seance.heureDebut}" class="text-danger"></span>
+				</div>
+				<button class="btn btn-success" type="submit">Save</button>
+			</form>
+		</div>
+		</div>
+		</div>
+			
+		</div>
+
+	</div>
+
+</body>
+</html>

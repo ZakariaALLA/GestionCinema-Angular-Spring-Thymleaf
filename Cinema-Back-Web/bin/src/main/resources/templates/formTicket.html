@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www:thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	      layout:decorator="template1"
+	>
+<head>
+<meta charset="utf-8">
+<title>Form Film</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+		<div class="col-md-6">
+		<div class="card">
+		<div class="card-header" th:if="${mode=='new'}">Formulaire de saisie d'un nouveau Ticket</div>
+		<div class="card-header" th:if="${mode=='edit'}">Formulaire de mise à jour d'un nouveau Ticket</div>
+		
+		<div class="card-body">
+		<form th:action="saveTicket" method="post">
+				<div class="form-group">
+					<label class="control-label">ID:</label>
+					<label class="control-label" th:text="ticket.id"></label>
+					<input type="hidden" name="id" class="form-control" th:value="${ticket.id}">
+					<span th:errors="${ticket.id}" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Nom du client:</label>
+					<input type="text" name="nomClient" class="form-control" th:value="${ticket.nomClient}">
+					<span th:errors="${ticket.nomClient}" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Prix:</label>
+					<input type="number" name="prix" class="form-control" th:value="${ticket.prix}">
+					<span th:errors="${ticket.prix}" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Code du payemet:</label>
+					<input type="number" name="codePayement" class="form-control" th:value="${ticket.codePayement}">
+					<span th:errors="${ticket.codePayement}" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Reservee</label>
+					<input type="checkbox" name="reservee" class="form-control" th:value="${ticket.reservee}">
+					<span th:errors="${ticket.reservee}" class="text-danger"></span>
+				</div>
+				
+				<button class="btn btn-success" type="submit">Save</button>
+			</form>
+		</div>
+		</div>
+		</div>
+			
+		</div>
+
+	</div>
+
+</body>
+</html>
